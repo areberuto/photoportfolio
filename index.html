@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,24 +12,39 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
             color: #000;
             background-color: #fff;
-            padding-top: 80px;
+            padding-top: 100px;
         }
-        
+
         a {
             text-decoration: none;
             color: #000;
         }
-        
+
+        img {
+            max-width: 100%;
+            height: auto;
+            vertical-align: middle;
+            font-style: italic;
+            background-repeat: no-repeat;
+            background-size: cover;
+            shape-margin: 1rem;
+        }
+
         /* Header styles */
         header {
             padding: 20px 5%;
-            border-bottom: 1px solid #000;
             position: fixed;
             top: 0;
             left: 0;
@@ -36,24 +52,24 @@
             background-color: #fff;
             z-index: 100;
         }
-        
+
         .logo {
             font-size: 1.2rem;
             font-weight: bold;
             letter-spacing: 1px;
         }
-        
+
         nav ul {
             list-style: none;
             display: flex;
             justify-content: flex-end;
             margin-top: -20px;
         }
-        
+
         nav li {
             margin-left: 30px;
         }
-        
+
         /* Gallery styles - Simple flexbox with wrapping */
         .gallery-container {
             margin-top: 24px;
@@ -62,57 +78,79 @@
             margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 20px 0px;
             justify-content: center;
         }
-        
+
         .gallery-item {
-            flex: 1 1 300px; /* Grow, shrink, basis */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1 1 300px;
+            /* Grow, shrink, basis */
             max-width: 500px;
             cursor: pointer;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s background 0.3s;
+            padding: 8px;
         }
-        
+
         .gallery-item:hover {
             opacity: 0.9;
+            background: #f2f2f2
         }
-        
+
         .gallery-item img {
-            width: 100%;
+            width: auto;
+            max-width: 100%;
             height: auto;
+            max-height: 350px;
+            object-fit: contain;
             display: block;
         }
-        
-        /* Lightbox styles */
+
+        /* Lightbox container */
         .lightbox {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background-color: rgba(0, 0, 0, 0.9);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            box-sizing: border-box;
+            padding: 0;
+            /* Removed padding to prevent vertical overflow */
+            overflow: auto;
+            /* Fallback scroll if necessary */
         }
-        
+
         .lightbox.active {
             display: flex;
         }
-        
+
+        /* Lightbox inner content */
         .lightbox-content {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        
+
         .lightbox-content img {
+            width: auto;
+            height: auto;
             max-width: 100%;
-            max-height: 100%;
+            max-height: 100vh;
+            object-fit: contain;
             display: block;
-            margin: 0 auto;
         }
-        
+
+
+        /* Close Button */
         .lightbox-close {
             position: absolute;
             top: 20px;
@@ -122,8 +160,21 @@
             font-weight: bold;
             cursor: pointer;
             z-index: 1001;
+            background: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
         }
-        
+
+        .lightbox-close:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Navigation Arrows */
         .lightbox-nav {
             position: absolute;
             top: 50%;
@@ -133,9 +184,11 @@
             padding: 0 20px;
             transform: translateY(-50%);
             z-index: 1001;
+            pointer-events: none;
         }
-        
-        .lightbox-prev, .lightbox-next {
+
+        .lightbox-prev,
+        .lightbox-next {
             color: #fff;
             font-size: 40px;
             cursor: pointer;
@@ -146,55 +199,95 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            pointer-events: all;
+            transition: background 0.3s;
         }
-        
+
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .lightbox-content {
+                max-width: 95vw;
+                max-height: 95vh;
+            }
+
+            .lightbox-prev,
+            .lightbox-next,
+            .lightbox-close {
+                width: 40px;
+                height: 40px;
+                font-size: 30px;
+            }
+
+            .lightbox-close {
+                top: 10px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lightbox-content {
+                max-width: 98vw;
+                max-height: 98vh;
+            }
+
+            .lightbox-prev,
+            .lightbox-next {
+                padding: 0 10px;
+            }
+        }
+
         /* Footer styles */
         footer {
-            border-top: 1px solid #000;
             padding: 30px 5%;
             text-align: center;
             margin-top: 50px;
         }
-        
+
         .footer-links {
             margin-bottom: 20px;
         }
-        
+
         .footer-links a {
             margin: 0 15px;
         }
-        
+
         .copyright {
             font-size: 0.9rem;
         }
-        
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             nav ul {
                 justify-content: center;
                 margin-top: 10px;
             }
-            
+
             nav li {
                 margin: 0 15px;
             }
-            
+
             .gallery-item {
                 flex-basis: 250px;
             }
         }
-        
+
         @media (max-width: 480px) {
             .gallery-item {
                 flex-basis: 100%;
             }
-            
-            .lightbox-prev, .lightbox-next {
+
+            .lightbox-prev,
+            .lightbox-next {
                 font-size: 30px;
                 width: 40px;
                 height: 40px;
             }
-            
+
             .lightbox-close {
                 font-size: 30px;
                 top: 10px;
@@ -203,6 +296,7 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="logo">arebpho</div>
@@ -214,11 +308,11 @@
             </ul>
         </nav>
     </header>
-    
+
     <main class="gallery-container" id="gallery">
         <!-- Images will be added here -->
     </main>
-    
+
     <footer>
         <div class="footer-links">
             <a href="#">Instagram</a>
@@ -229,7 +323,7 @@
             &copy; 2025 alberto peinado. all rights reserved.
         </div>
     </footer>
-    
+
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
         <span class="lightbox-close" id="lightboxClose">&times;</span>
@@ -241,7 +335,7 @@
             <img id="lightboxImage" src="" alt="">
         </div>
     </div>
-    
+
     <script>
         // Sample images from Unsplash (various orientations)
         const imageUrls = [
@@ -257,34 +351,40 @@
             './images/ph10.jpg',
             './images/ph11.jpg',
             './images/ph12.jpg',
+            './images/ph13.jpg',
+            './images/ph14.jpg',
+            './images/ph15.jpg',
+            './images/ph16.jpg',
+            './images/ph17.jpg',
+            './images/ph18.jpg',
         ];
-        
+
         // Lightbox state
         let currentImageIndex = 0;
-        
+
         // Initialize the gallery
         function initGallery() {
             const gallery = document.getElementById('gallery');
-            
+
             // Add images to gallery
             imageUrls.forEach((url, index) => {
                 const galleryItem = document.createElement('div');
                 galleryItem.className = 'gallery-item';
                 galleryItem.setAttribute('data-index', index);
                 galleryItem.innerHTML = `<img src="${url}" alt="Gallery image ${index + 1}">`;
-                
+
                 // Add click event for lightbox
-                galleryItem.addEventListener('click', function() {
+                galleryItem.addEventListener('click', function () {
                     openLightbox(index);
                 });
-                
+
                 gallery.appendChild(galleryItem);
             });
-            
+
             // Setup lightbox event listeners
             setupLightbox();
         }
-        
+
         // Setup lightbox functionality
         function setupLightbox() {
             const lightbox = document.getElementById('lightbox');
@@ -292,28 +392,28 @@
             const lightboxPrev = document.getElementById('lightboxPrev');
             const lightboxNext = document.getElementById('lightboxNext');
             const lightboxImage = document.getElementById('lightboxImage');
-            
+
             // Close lightbox
             lightboxClose.addEventListener('click', closeLightbox);
-            lightbox.addEventListener('click', function(e) {
+            lightbox.addEventListener('click', function (e) {
                 if (e.target === lightbox) {
                     closeLightbox();
                 }
             });
-            
+
             // Navigation
-            lightboxPrev.addEventListener('click', function(e) {
+            lightboxPrev.addEventListener('click', function (e) {
                 e.stopPropagation();
                 navigateLightbox(-1);
             });
-            
-            lightboxNext.addEventListener('click', function(e) {
+
+            lightboxNext.addEventListener('click', function (e) {
                 e.stopPropagation();
                 navigateLightbox(1);
             });
-            
+
             // Keyboard navigation
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 if (lightbox.classList.contains('active')) {
                     if (e.key === 'Escape') closeLightbox();
                     if (e.key === 'ArrowLeft') navigateLightbox(-1);
@@ -321,42 +421,43 @@
                 }
             });
         }
-        
+
         // Open lightbox with specific image
         function openLightbox(index) {
             currentImageIndex = index;
             const lightbox = document.getElementById('lightbox');
             const lightboxImage = document.getElementById('lightboxImage');
-            
+
             lightboxImage.src = imageUrls[index];
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden'; // Prevent scrolling
         }
-        
+
         // Close lightbox
         function closeLightbox() {
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('active');
             document.body.style.overflow = 'auto'; // Re-enable scrolling
         }
-        
+
         // Navigate through images in lightbox
         function navigateLightbox(direction) {
             currentImageIndex += direction;
-            
+
             // Loop around if at ends
             if (currentImageIndex >= imageUrls.length) {
                 currentImageIndex = 0;
             } else if (currentImageIndex < 0) {
                 currentImageIndex = imageUrls.length - 1;
             }
-            
+
             const lightboxImage = document.getElementById('lightboxImage');
             lightboxImage.src = imageUrls[currentImageIndex];
         }
-        
+
         // Initialize the gallery when the page loads
         window.onload = initGallery;
     </script>
 </body>
+
 </html>
