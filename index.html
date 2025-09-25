@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>arebpho - alberto peinado</title>
+    <title>arebpho</title>
     <style>
         /* Reset and base styles */
         * {
@@ -51,6 +51,7 @@
             width: 100%;
             background-color: #fff;
             z-index: 100;
+            border-bottom: 1px solid #f2f2f2;
         }
 
         .logo {
@@ -68,6 +69,45 @@
 
         nav li {
             margin-left: 30px;
+        }
+
+        nav a.active {
+            font-weight: bold;
+        }
+
+        /* Page content styles */
+        .page-content {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 5%;
+            text-align: center;
+        }
+
+        .about-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 30px;
+        }
+
+        .page-text {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            font-size: 1.1rem;
+        }
+
+        .contact-info a {
+            display: block;
+            margin: 10px 0;
         }
 
         /* Gallery styles - Simple flexbox with wrapping */
@@ -104,6 +144,7 @@
             max-width: 100%;
             height: auto;
             max-height: 350px;
+            min-width: 350px;
             object-fit: contain;
             display: block;
         }
@@ -227,6 +268,10 @@
                 top: 10px;
                 right: 15px;
             }
+            
+            .page-content {
+                padding: 0 10%;
+            }
         }
 
         @media (max-width: 480px) {
@@ -238,6 +283,20 @@
             .lightbox-prev,
             .lightbox-next {
                 padding: 0 10px;
+            }
+            
+            nav ul {
+                justify-content: center;
+                margin-top: 10px;
+            }
+
+            nav li {
+                margin: 0 15px;
+            }
+            
+            .about-image {
+                width: 150px;
+                height: 150px;
             }
         }
 
@@ -259,41 +318,6 @@
         .copyright {
             font-size: 0.9rem;
         }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            nav ul {
-                justify-content: center;
-                margin-top: 10px;
-            }
-
-            nav li {
-                margin: 0 15px;
-            }
-
-            .gallery-item {
-                flex-basis: 250px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .gallery-item {
-                flex-basis: 100%;
-            }
-
-            .lightbox-prev,
-            .lightbox-next {
-                font-size: 30px;
-                width: 40px;
-                height: 40px;
-            }
-
-            .lightbox-close {
-                font-size: 30px;
-                top: 10px;
-                right: 15px;
-            }
-        }
     </style>
 </head>
 
@@ -302,22 +326,47 @@
         <div class="logo">arebpho</div>
         <nav>
             <ul>
-                <li><a href="#">Portfolio</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#" class="nav-link" data-page="portfolio">Portfolio</a></li>
+                <li><a href="#" class="nav-link" data-page="about">About</a></li>
+                <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="gallery-container" id="gallery">
-        <!-- Images will be added here -->
+    <main id="content">
+        <!-- Portfolio page (default) -->
+        <div class="gallery-container" id="portfolio-page">
+            <!-- Images will be added here -->
+        </div>
+        
+        <!-- About page -->
+        <div class="page-content" id="about-page" style="display: none;">
+            <img src="./images/profile.jpg" alt="Alberto Peinado" class="about-image">
+            <div class="page-text" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px;">
+                <p>alberto peinado es un culo de mal asiento. de ciencia y de humanidad. la observación y lo social como fines, la fotografía como uno de los medios.
+                <p>basado en Sevilla, su trabajo se centra en las personas y la mirada, con un foco especial en la calle, la alegría, la precariedad y el trabajo moderno.</p>
+                <p>abierto para comisiones, encargos, y colaboraciones con proyectos que intersecten en interés. puedes encontrar los datos de contacto <a href="#" class="nav-link" data-page="contact" style="color: #007bff; text-decoration: underline;">aquí</a></p>
+            </div>
+        </div>
+        
+        <!-- Contact page -->
+        <div class="page-content" id="contact-page" style="display: none;">
+            <div class="page-text" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px;">
+                <p>para consultas sobre prints, colaboraciones o trabajos por encargo, puedes ponerte en contacto a través de cualquiera de los siguientes canales.</p>
+                <div class="contact-info">
+                    <a href="mailto:arebpho@gmail.com">arebpho@gmail.com</a>
+                    <a href="https://instagram.com/arebpho" target="_blank">Instagram</a>
+                    <a href="https://www.linkedin.com/in/alberto-peinado-rubio/" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
         <div class="footer-links">
-            <a href="#">Instagram</a>
-            <a href="#">Email</a>
-            <a href="#">LinkedIn</a>
+            <a href="https://instagram.com/arebpho" target="_blank">Instagram</a>
+            <a href="mailto:arebpho@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/alberto-peinado-rubio/" target="_blank">LinkedIn</a>
         </div>
         <div class="copyright">
             &copy; 2025 alberto peinado. all rights reserved.
@@ -339,32 +388,79 @@
     <script>
         // Sample images from Unsplash (various orientations)
         const imageUrls = [
-            './images/ph1.jpg',
-            './images/ph2.jpg',
-            './images/ph3.jpg',
-            './images/ph4.jpg',
-            './images/ph5.jpg',
-            './images/ph6.jpg',
-            './images/ph7.jpg',
-            './images/ph8.jpg',
-            './images/ph9.jpg',
-            './images/ph10.jpg',
-            './images/ph11.jpg',
-            './images/ph12.jpg',
-            './images/ph13.jpg',
-            './images/ph14.jpg',
-            './images/ph15.jpg',
-            './images/ph16.jpg',
-            './images/ph17.jpg',
-            './images/ph18.jpg',
+            './images/photo1.jpg',
+            './images/photo2.jpg',
+            './images/photo3.jpg',
+            './images/photo4.jpg',
+            './images/photo5.jpg',
+            './images/photo6.jpg',
+            './images/photo7.jpg',
+            './images/photo8.jpg',
+            './images/photo9.jpg',
+            './images/photo10.jpg',
+            './images/photo11.jpg',
+            './images/photo12.jpg',
+            './images/photo13.jpg',
+            './images/photo14.jpg',
+            './images/photo15.jpg',
+            './images/photo16.jpg',
+            './images/photo17.jpg',
+            './images/photo18.jpg',
+            './images/photo19.jpg',
+            './images/photo20.jpg',
+            './images/photo21.jpg',
+            './images/photo22.jpg',
+            './images/photo23.jpg',
+            './images/photo24.jpg',
+            './images/photo25.jpg',
+            './images/photo26.jpg',
+            './images/photo27.jpg',
+            './images/photo28.jpg',
+            './images/photo29.jpg',
+            './images/photo30.jpg',
+            './images/photo31.jpg',
+            './images/photo32.jpg',
+            './images/photo33.jpg',
+            './images/photo34.jpg',
+            './images/photo35.jpg',
+            './images/photo36.jpg',
+            './images/photo37.jpg',
+            './images/photo38.jpg',
+            './images/photo39.jpg',
+            './images/photo40.jpg',
+            './images/photo41.jpg',
+            './images/photo42.jpg',
+            './images/photo43.jpg',
+            './images/photo44.jpg',
+            './images/photo45.jpg',
+            './images/photo46.jpg',
+            './images/photo47.jpg',
+            './images/photo48.jpg',
+            './images/photo49.jpg',
+            './images/photo50.jpg',
+            './images/photo51.jpg',
+            './images/photo52.jpg',
+            './images/photo53.jpg',
+            './images/photo54.jpg',
+            './images/photo55.jpg',
         ];
 
         // Lightbox state
         let currentImageIndex = 0;
 
+        // Current page state
+        let currentPage = 'portfolio';
+
+        // Initialize the gallery and routing
+        function initApp() {
+            initGallery();
+            setupRouting();
+            setupLightbox();
+        }
+
         // Initialize the gallery
         function initGallery() {
-            const gallery = document.getElementById('gallery');
+            const gallery = document.getElementById('portfolio-page');
 
             // Add images to gallery
             imageUrls.forEach((url, index) => {
@@ -380,9 +476,57 @@
 
                 gallery.appendChild(galleryItem);
             });
+        }
 
-            // Setup lightbox event listeners
-            setupLightbox();
+        // Setup routing functionality
+        function setupRouting() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Add click event to navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    navigateToPage(page);
+                });
+            });
+            
+            // Set active state for current page
+            updateActiveNav();
+        }
+
+        // Navigate to a specific page
+        function navigateToPage(page) {
+            // Hide all pages
+            document.getElementById('portfolio-page').style.display = 'none';
+            document.getElementById('about-page').style.display = 'none';
+            document.getElementById('contact-page').style.display = 'none';
+            
+            // Show the selected page
+            document.getElementById(`${page}-page`).style.display = 
+                page === 'portfolio' ? 'flex' : 'block';
+            
+            // Update current page
+            currentPage = page;
+            
+            // Update active navigation
+            updateActiveNav();
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Update active state in navigation
+        function updateActiveNav() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-page') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
         }
 
         // Setup lightbox functionality
@@ -455,8 +599,8 @@
             lightboxImage.src = imageUrls[currentImageIndex];
         }
 
-        // Initialize the gallery when the page loads
-        window.onload = initGallery;
+        // Initialize the app when the page loads
+        window.onload = initApp;
     </script>
 </body>
 
