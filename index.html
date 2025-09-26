@@ -24,7 +24,7 @@
             line-height: 1.6;
             color: #000;
             background-color: #fff;
-            padding-top: 100px;
+            padding-top: 120px;
         }
 
         a {
@@ -51,7 +51,6 @@
             width: 100%;
             background-color: #fff;
             z-index: 100;
-            border-bottom: 1px solid #f2f2f2;
         }
 
         .logo {
@@ -326,9 +325,9 @@
         <div class="logo">arebpho</div>
         <nav>
             <ul>
-                <li><a href="#" class="nav-link" data-page="portfolio">Portfolio</a></li>
-                <li><a href="#" class="nav-link" data-page="about">About</a></li>
-                <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+                <li><a href="#" class="nav-link" data-page="portfolio">portfolio</a></li>
+                <li><a href="#" class="nav-link" data-page="about">sobre mí</a></li>
+                <li><a href="#" class="nav-link" data-page="contact">contacto</a></li>
             </ul>
         </nav>
     </header>
@@ -444,6 +443,12 @@
             './images/photo54.jpg',
             './images/photo55.jpg',
         ];
+
+        // Shuffle the imageUrls array (Fisher-Yates)
+        for (let i = imageUrls.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [imageUrls[i], imageUrls[j]] = [imageUrls[j], imageUrls[i]];
+        }
 
         // Lightbox state
         let currentImageIndex = 0;
