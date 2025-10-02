@@ -86,7 +86,7 @@
         }
 
         .about-image {
-            width: 200px;
+            width: 300px;
             height: 200px;
             object-fit: cover;
             margin-bottom: 30px;
@@ -267,7 +267,7 @@
                 top: 10px;
                 right: 15px;
             }
-            
+
             .page-content {
                 padding: 0 10%;
             }
@@ -283,7 +283,7 @@
             .lightbox-next {
                 padding: 0 10px;
             }
-            
+
             nav ul {
                 justify-content: center;
                 margin-top: 10px;
@@ -292,9 +292,9 @@
             nav li {
                 margin: 0 15px;
             }
-            
+
             .about-image {
-                width: 150px;
+                width: 250px;
                 height: 150px;
             }
         }
@@ -325,9 +325,9 @@
         <div class="logo">arebpho</div>
         <nav>
             <ul>
-                <li><a href="#" class="nav-link" data-page="portfolio">portfolio</a></li>
-                <li><a href="#" class="nav-link" data-page="about">sobre mí</a></li>
-                <li><a href="#" class="nav-link" data-page="contact">contacto</a></li>
+                <li><a href="#portfolio" class="nav-link" data-page="portfolio">portfolio</a></li>
+                <li><a href="#about" class="nav-link" data-page="about">sobre mí</a></li>
+                <li><a href="#contact" class="nav-link" data-page="contact">contacto</a></li>
             </ul>
         </nav>
     </header>
@@ -337,21 +337,28 @@
         <div class="gallery-container" id="portfolio-page">
             <!-- Images will be added here -->
         </div>
-        
+
         <!-- About page -->
         <div class="page-content" id="about-page" style="display: none;">
             <img src="./images/profile.jpg" alt="Alberto Peinado" class="about-image">
-            <div class="page-text" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px;">
-                <p>alberto peinado es un culo de mal asiento. de ciencia y de humanidad. la observación y lo social como fines, la fotografía como uno de los medios.
-                <p>basado en Sevilla, su trabajo se centra en las personas y la mirada, con un foco especial en la calle, la alegría, la precariedad y el trabajo moderno.</p>
-                <p>abierto para comisiones, encargos, y colaboraciones con proyectos que intersecten en interés. puedes encontrar los datos de contacto <a href="#" class="nav-link" data-page="contact" style="color: #007bff; text-decoration: underline;">aquí</a></p>
+            <div class="page-text"
+                style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px;">
+                <p>alberto peinado es un culo de mal asiento. de ciencia y de humanidad. la observación y lo social como
+                    fines, la fotografía como uno de los medios.
+                <p>basado en Sevilla, su trabajo se centra en las personas y la mirada, con un foco especial en la
+                    calle, la alegría, la precariedad y el trabajo moderno.</p>
+                <p>abierto para comisiones, encargos, y colaboraciones con proyectos que intersecten en interés. puedes
+                    encontrar los datos de contacto <a href="#" class="nav-link" data-page="contact"
+                        style="color: #007bff; text-decoration: underline;">aquí</a>.</p>
             </div>
         </div>
-        
+
         <!-- Contact page -->
         <div class="page-content" id="contact-page" style="display: none;">
-            <div class="page-text" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px;">
-                <p>para consultas sobre prints, colaboraciones o trabajos por encargo, puedes ponerte en contacto a través de cualquiera de los siguientes canales.</p>
+            <div class="page-text"
+                style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px;">
+                <p>para consultas sobre prints, colaboraciones o trabajos por encargo, puedes ponerte en contacto a
+                    través de cualquiera de los siguientes canales.</p>
                 <div class="contact-info">
                     <a href="mailto:arebpho@gmail.com">arebpho@gmail.com</a>
                     <a href="https://instagram.com/arebpho" target="_blank">Instagram</a>
@@ -461,6 +468,7 @@
             initGallery();
             setupRouting();
             setupLightbox();
+            handleHashChange(); // Load the correct section based on hash
         }
 
         // Initialize the gallery
@@ -483,21 +491,50 @@
             });
         }
 
-        // Setup routing functionality
+        // Routing setup
         function setupRouting() {
+            // Handle hash changes (when the user clicks a link or uses browser navigation)
+            window.addEventListener('hashchange', handleHashChange);
+
+            // Also manually bind clicks to links just in case (optional)
             const navLinks = document.querySelectorAll('.nav-link');
-            
-            // Add click event to navigation links
             navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', function (e) {
                     e.preventDefault();
                     const page = this.getAttribute('data-page');
-                    navigateToPage(page);
+                    location.hash = page; // This will trigger 'hashchange'
                 });
             });
-            
-            // Set active state for current page
+        }
+
+        // Handle URL hash change (e.g., #portfolio)
+        function handleHashChange() {
+            let page = location.hash.replace('#', '');
+
+            // Fallback if no hash
+            if (!page) page = 'portfolio';
+
+            // Hide all pages
+            document.getElementById('portfolio-page').style.display = 'none';
+            document.getElementById('about-page').style.display = 'none';
+            document.getElementById('contact-page').style.display = 'none';
+
+            // Show selected page
+            const pageElement = document.getElementById(`${page}-page`);
+            if (pageElement) {
+                pageElement.style.display = (page === 'portfolio') ? 'flex' : 'block';
+                currentPage = page;
+            } else {
+                // Invalid hash? fallback
+                document.getElementById('portfolio-page').style.display = 'flex';
+                currentPage = 'portfolio';
+            }
+
+            // Update nav active state
             updateActiveNav();
+
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
 
         // Navigate to a specific page
@@ -506,17 +543,17 @@
             document.getElementById('portfolio-page').style.display = 'none';
             document.getElementById('about-page').style.display = 'none';
             document.getElementById('contact-page').style.display = 'none';
-            
+
             // Show the selected page
-            document.getElementById(`${page}-page`).style.display = 
+            document.getElementById(`${page}-page`).style.display =
                 page === 'portfolio' ? 'flex' : 'block';
-            
+
             // Update current page
             currentPage = page;
-            
+
             // Update active navigation
             updateActiveNav();
-            
+
             // Scroll to top
             window.scrollTo(0, 0);
         }
@@ -524,7 +561,7 @@
         // Update active state in navigation
         function updateActiveNav() {
             const navLinks = document.querySelectorAll('.nav-link');
-            
+
             navLinks.forEach(link => {
                 if (link.getAttribute('data-page') === currentPage) {
                     link.classList.add('active');
